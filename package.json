@@ -1,0 +1,29 @@
+{
+  "name": "rank",
+  "version": "1.0.0",
+  "description": "爬取网络上的漫画、小说、听书、电影、电视剧和动漫排行榜",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Unicellular-SU/rank.git"
+  },
+  "keywords": [
+    "rank",
+    "movie",
+    "comic",
+    "novel",
+    "audiobook"
+  ],
+  "author": "静",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Unicellular-SU/rank/issues"
+  },
+  "homepage": "https://github.com/Unicellular-SU/rank#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.11"
+  }
+}
