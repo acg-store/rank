@@ -7,7 +7,7 @@ const RANK_TV_LINK = "https://movie.douban.com/j/search_subjects?type=tv&tag=%E7
 const RANK_NOVEL_LINK = "https://www.qidian.com/rank/readIndex/";
 const RANK_COMIC_LINK = "https://www.dm5.com/manhua-rank/?t=4";
 const RANK_AUDIOBOOK_LINK = "https://www.ximalaya.com/top/paid/youshengshu/";
-const RANK_ANIME_LINK = "https://www.qiqidongman.com/vod-search-order-vod_addtime.html";
+const RANK_ANIME_LINK = "https://www.uiviki.com/anime-rimanweekhits.html";
 
 async function requestMovie() {
     console.log('start get movie rank')
@@ -94,14 +94,13 @@ async function requestAnime() {
         return await request.get(RANK_ANIME_LINK).then((res) => {
             let $ = cheerio.load(res.text);
             let rankItemList = [];
-            $('#LIST').children('li').each(function (i, e) {
+            $('.vodlist').children('li').each(function (i, e) {
                 let self = $(this);
                 rankItemList.push({
-                    title: self.find('img').attr('alt'),
-                    cover: `https://www.qiqidongman.com${self.find('img').attr('data-src')}`,
-                    info: self.children('.desc').text(),
-                    newest: self.find('.date').text(),
-                    updateTime: self.find('.state > font').text(),
+                    title: self.children('a').attr('title'),
+                    cover: self.find('img').attr('data-echo'),
+                    info: self.find('.info').map((i, e) => $(e).text().trim()).get().join('\n'),
+                    popular: self.find('span.pic-text').text(),
                 });
             });
             return rankItemList;
