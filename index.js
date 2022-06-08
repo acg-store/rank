@@ -17,7 +17,13 @@ async function requestMovie() {
             let movies = res.body.subjects;
             let rankItemList = [];
             movies.forEach(movie => {
-                rankItemList.push({ title: movie.title, cover: movie.cover, url: movie.url, rate: movie.rate });
+                rankItemList.push({
+                    title: movie.title,
+                    cover: movie.cover,
+                    url: movie.url,
+                    rate: movie.rate,
+                    type: 2
+                });
             });
             return rankItemList;
         });
@@ -34,7 +40,13 @@ async function requestTV() {
             let movies = res.body.subjects;
             let rankItemList = [];
             movies.forEach(movie => {
-                rankItemList.push({ title: movie.title, cover: movie.cover, url: movie.url, rate: movie.rate });
+                rankItemList.push({
+                    title: movie.title,
+                    cover: movie.cover,
+                    url: movie.url,
+                    rate: movie.rate,
+                    type: 2
+                });
             });
             return rankItemList;
         });
@@ -58,6 +70,7 @@ async function requestAudiobook() {
                     info: self.find('.description').text(),
                     author: self.find('.user-name.mgl-20_title').text(),
                     newest: self.find('.update').text(),
+                    type: 4
                 });
             });
             return rankItemList;
@@ -83,6 +96,7 @@ async function requestNovel() {
                     author: self.find('.author > a').first().text(),
                     newest: self.find('.update > a').text().replace('最新更新 ', ''),
                     updateTime: self.find('.update > span').text(),
+                    type: 3
                 });
             });
             return rankItemList;
@@ -106,6 +120,7 @@ async function requestAnime() {
                     cover: self.find('img').attr('data-echo'),
                     info: self.find('.info').map((i, e) => $(e).text().trim()).get().join('\n'),
                     popular: self.find('span.pic-text').text(),
+                    type: 2
                 });
             });
             return rankItemList;
@@ -130,6 +145,7 @@ async function requestComic() {
                     info: self.find('.desc').first().text().trim(),
                     author: self.find('p.zl').first().find('a').map(function (i, e) { return $(e).text() }).get().join(',').trim(),
                     newest: self.find('.chapter > a').first().text(),
+                    type: 1
                 });
             });
             return rankItemList;
