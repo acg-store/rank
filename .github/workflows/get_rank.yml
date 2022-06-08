@@ -1,7 +1,6 @@
 name: get_rank
 on:
   workflow_dispatch:
-  push:
   schedule:
     - cron: '0 18 * * *'
 
