@@ -10,9 +10,10 @@ const RANK_AUDIOBOOK_LINK = "https://www.ximalaya.com/top/paid/youshengshu/";
 const RANK_ANIME_LINK = "https://www.uiviki.com/anime-rimanweekhits.html";
 
 async function requestMovie() {
-    console.log('start get movie rank')
+    console.log('start get movie rank');
     try {
         return await request.get(RANK_MOVIE_LINK).then((res) => {
+            console.log('parse movie rank');
             let movies = res.body.subjects;
             let rankItemList = [];
             movies.forEach(movie => {
@@ -26,9 +27,10 @@ async function requestMovie() {
 }
 
 async function requestTV() {
-    console.log('start get tv rank')
+    console.log('start get tv rank');
     try {
         return await request.get(RANK_TV_LINK).then((res) => {
+            console.log('parse tv rank');
             let movies = res.body.subjects;
             let rankItemList = [];
             movies.forEach(movie => {
@@ -42,9 +44,10 @@ async function requestTV() {
 }
 
 async function requestAudiobook() {
-    console.log('start get audiobook rank')
+    console.log('start get audiobook rank');
     try {
         return await request.get(RANK_AUDIOBOOK_LINK).then((res) => {
+            console.log('parse audiobook rank');
             let $ = cheerio.load(res.text);
             let rankItemList = [];
             $('.album-item._Sq').each(function (i, e) {
@@ -65,9 +68,10 @@ async function requestAudiobook() {
 }
 
 async function requestNovel() {
-    console.log('start get novel rank')
+    console.log('start get novel rank');
     try {
         return await request.get(RANK_NOVEL_LINK).then((res) => {
+            console.log('parse novel rank');
             let $ = cheerio.load(res.text);
             let rankItemList = [];
             $('#book-img-text').find('li').each(function (i, e) {
@@ -92,6 +96,7 @@ async function requestAnime() {
     console.log('start get anime rank')
     try {
         return await request.get(RANK_ANIME_LINK).then((res) => {
+            console.log('parse anime rank');
             let $ = cheerio.load(res.text);
             let rankItemList = [];
             $('.vodlist').children('li').each(function (i, e) {
@@ -114,6 +119,7 @@ async function requestComic() {
     console.log('start get comic rank')
     try {
         return await request.get(RANK_COMIC_LINK).then((res) => {
+            console.log('parse comic rank');
             let $ = cheerio.load(res.text);
             let rankItemList = [];
             $('.mh-list.col3.top-cat').children('li').each(function (i, e) {
