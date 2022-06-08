@@ -10,6 +10,7 @@ const RANK_AUDIOBOOK_LINK = "https://www.ximalaya.com/top/paid/youshengshu/";
 const RANK_ANIME_LINK = "https://www.qiqidongman.com/vod-search-order-vod_addtime.html";
 
 async function requestMovie() {
+    console.log('start get movie rank')
     try {
         return await request.get(RANK_MOVIE_LINK).then((res) => {
             let movies = res.body.subjects;
@@ -25,6 +26,7 @@ async function requestMovie() {
 }
 
 async function requestTV() {
+    console.log('start get tv rank')
     try {
         return await request.get(RANK_TV_LINK).then((res) => {
             let movies = res.body.subjects;
@@ -40,6 +42,7 @@ async function requestTV() {
 }
 
 async function requestAudiobook() {
+    console.log('start get audiobook rank')
     try {
         return await request.get(RANK_AUDIOBOOK_LINK).then((res) => {
             let $ = cheerio.load(res.text);
@@ -62,6 +65,7 @@ async function requestAudiobook() {
 }
 
 async function requestNovel() {
+    console.log('start get novel rank')
     try {
         return await request.get(RANK_NOVEL_LINK).then((res) => {
             let $ = cheerio.load(res.text);
@@ -85,6 +89,7 @@ async function requestNovel() {
 }
 
 async function requestAnime() {
+    console.log('start get anime rank')
     try {
         return await request.get(RANK_ANIME_LINK).then((res) => {
             let $ = cheerio.load(res.text);
@@ -107,6 +112,7 @@ async function requestAnime() {
 }
 
 async function requestComic() {
+    console.log('start get comic rank')
     try {
         return await request.get(RANK_COMIC_LINK).then((res) => {
             let $ = cheerio.load(res.text);
@@ -144,8 +150,9 @@ async function requestComic() {
         anime: anime,
         comic: comic,
     }
+    console.log('write rank.json')
     fs.writeFile('./rank.json', JSON.stringify(rank), (err) => {
         if (err) throw err;
-        console.log("爬取排行榜成功");
+        console.log("get rank success");
     });
 })();
