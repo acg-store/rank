@@ -1,0 +1,31 @@
+name: get_rank
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '0 18 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: 
+          fetch-depth: 0
+      
+      - name: setup node
+        uses: actions/setup-node@v1
+        with: 
+          node-version: '14.x'
+
+      - name: Create local changes
+        run: |
+          npm install
+          node index.js
+      - name: Commit files
+        run: |
+          git config user.email acgstore25252@gmail.com
+          git config user.name acg-store
+          git add rank.json
+          git commit -m "update rank" -a
+          git push origin main
