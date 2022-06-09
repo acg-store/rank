@@ -7,7 +7,7 @@ const RANK_TV_LINK = "https://movie.douban.com/j/search_subjects?type=tv&tag=%E7
 const RANK_NOVEL_LINK = "https://www.qidian.com/rank/readIndex/";
 const RANK_COMIC_LINK = "https://www.dm5.com/manhua-rank/?t=4";
 const RANK_AUDIOBOOK_LINK = "https://www.ximalaya.com/top/paid/youshengshu/";
-const RANK_ANIME_LINK = "https://www.uiviki.com/anime-rimanweekhits.html";
+const RANK_ANIME_LINK = "https://www.uiviki.com/anime-lianzaiweekhits.html";
 const RANK_LIGHT_NOVEL_LINK = "https://www.linovel.net/hub/getTopBooks?unit=ticket&time=week&page=1";
 
 async function requestMovie() {
