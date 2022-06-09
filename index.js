@@ -8,6 +8,7 @@ const RANK_NOVEL_LINK = "https://www.qidian.com/rank/readIndex/";
 const RANK_COMIC_LINK = "https://www.dm5.com/manhua-rank/?t=4";
 const RANK_AUDIOBOOK_LINK = "https://www.ximalaya.com/top/paid/youshengshu/";
 const RANK_ANIME_LINK = "https://www.uiviki.com/anime-rimanweekhits.html";
+const RANK_LIGHT_NOVEL_LINK = "https://www.linovel.net/hub/getTopBooks?unit=ticket&time=week&page=1";
 
 async function requestMovie() {
     console.log('start get movie rank');
@@ -156,6 +157,31 @@ async function requestComic() {
 
 }
 
+async function requestLightNovel() {
+    console.log('start get light novel rank');
+    try {
+        return await request.get(RANK_LIGHT_NOVEL_LINK).then((res) => {
+            console.log('parse light novel rank');
+            let novels = res.body.data.books;
+            let rankItemList = [];
+            novels.forEach(novel => {
+                rankItemList.push({
+                    title: novel.name,
+                    cover: novel.coverUrl,
+                    author: novel.author,
+                    info: novel.about,
+                    popular: novel.hot,
+                    updateTime: novel.up,
+                    type: 3
+                });
+            });
+            return rankItemList;
+        });
+    } catch (e) {
+        return [];
+    }
+}
+
 (async () => {
     const movie = await requestMovie();
     const tv = await requestTV();
@@ -163,6 +189,8 @@ async function requestComic() {
     const audiobook = await requestAudiobook();
     const anime = await requestAnime();
     const comic = await requestComic();
+    const lightNovel = await requestLightNovel();
+
     const rank = {
         movie: movie,
         tv: tv,
@@ -170,6 +198,7 @@ async function requestComic() {
         audiobook: audiobook,
         anime: anime,
         comic: comic,
+        lightNovel: lightNovel,
     }
     console.log('write rank.json')
     fs.writeFile('./rank.json', JSON.stringify(rank), (err) => {
