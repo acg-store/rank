@@ -118,7 +118,7 @@ async function requestAnime() {
                 let self = $(this);
                 rankItemList.push({
                     title: self.children('a').attr('title'),
-                    cover: self.find('img').attr('data-echo'),
+                    cover: `https://www.uiviki.com${self.find('img').attr('data-echo')}`,
                     info: self.find('.info').map((i, e) => $(e).text().trim()).get().join('\n'),
                     popular: self.find('span.pic-text').text(),
                     type: 2
