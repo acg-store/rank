@@ -110,7 +110,7 @@ async function requestNovel() {
 async function requestAnime() {
     console.log('start get anime rank')
     try {
-        return await request.get(RANK_ANIME_LINK).then((res) => {
+        return await request.get(RANK_ANIME_LINK).disableTLSCerts().then((res) => {
             console.log('parse anime rank');
             let $ = cheerio.load(res.text);
             let rankItemList = [];
