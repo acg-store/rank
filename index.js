@@ -6,8 +6,8 @@ const RANK_MOVIE_LINK = "https://movie.douban.com/j/search_subjects?type=movie&t
 const RANK_TV_LINK = "https://movie.douban.com/j/search_subjects?type=tv&tag=%E7%83%AD%E9%97%A8&sort=recommend&page_limit=20&page_start=0";
 const RANK_NOVEL_LINK = "https://www.qidian.com/rank/readIndex/";
 const RANK_COMIC_LINK = "https://www.dm5.com/manhua-rank/?t=4";
-const RANK_AUDIOBOOK_LINK = "https://www.ximalaya.com/top/paid/youshengshu/";
-const RANK_ANIME_LINK = "https://www.uiviki.com/anime-lianzaiweekhits.html";
+const RANK_AUDIOBOOK_LINK = "https://www.ximalaya.com/top/";
+const RANK_ANIME_LINK = "https://bangumi.tv/calendar";
 const RANK_LIGHT_NOVEL_LINK = "https://www.linovel.net/hub/getTopBooks?unit=ticket&time=week&page=1";
 
 async function requestMovie() {
@@ -114,13 +114,18 @@ async function requestAnime() {
             console.log('parse anime rank');
             let $ = cheerio.load(res.text);
             let rankItemList = [];
-            $('.vodlist').children('li').each(function (i, e) {
+            let day = new Date().getDay();
+            $('.week').eq(day).find('li').each(function (i, e) {
                 let self = $(this);
+                let title = self.find('a').first().text();
+                if (!title) {
+                    title = self.find('a').last().text();
+                }
+                let info = self.find('a').last().text();
                 rankItemList.push({
-                    title: self.children('a').attr('title'),
-                    cover: `https://www.uiviki.com${self.find('img').attr('data-echo')}`,
-                    info: self.find('.info').map((i, e) => $(e).text().trim()).get().join('\n'),
-                    popular: self.find('span.pic-text').text(),
+                    title: title,
+                    info: info,
+                    cover: `https:${self.attr('style').match(/url\('(.*)'\)/i)[1]}`,
                     type: 2
                 });
             });
